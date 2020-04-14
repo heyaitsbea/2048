@@ -244,7 +244,7 @@ KeyboardInputManager.prototype.toggle = function (event) {
     key = 38;
   }
 
-  document.getElementById("option").innerHTML = "Move " + direction;
+  document.getElementById("option").innerHTML = "Direction to move: " + direction;
 
 
 }
