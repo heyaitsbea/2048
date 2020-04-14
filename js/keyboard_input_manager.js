@@ -63,6 +63,7 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
     var modifiers = event.altKey || event.ctrlKey || event.metaKey ||
       event.shiftKey;
     var mapped = map[event.which]; // returns the key that was pressed like 38, etc, and each key maps to a number
+  
     var usingKeys = false;
   
     if (mapped == 32) {
@@ -117,7 +118,9 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
   });
 
   document.getElementById("s").addEventListener("click", function (event) { // listening for keydown events --> 
-    var mapped = map[key];
+    var mapped = optionNumber;
+    
+    console.log(mapped);
     event.preventDefault();
     self.emit("move", mapped);
 
