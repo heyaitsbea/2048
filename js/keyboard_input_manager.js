@@ -6,13 +6,13 @@ function KeyboardInputManager() { // manages keyboard input
 
   if (window.navigator.msPointerEnabled) {
     //Internet Explorer 10 style
-    this.eventTouchstart    = "MSPointerDown";
-    this.eventTouchmove     = "MSPointerMove";
-    this.eventTouchend      = "MSPointerUp";
+    this.eventTouchstart = "MSPointerDown";
+    this.eventTouchmove = "MSPointerMove";
+    this.eventTouchend = "MSPointerUp";
   } else {
-    this.eventTouchstart    = "touchstart"; // has different variables and assigning names to them
-    this.eventTouchmove     = "touchmove";
-    this.eventTouchend      = "touchend";
+    this.eventTouchstart = "touchstart"; // has different variables and assigning names to them
+    this.eventTouchmove = "touchmove";
+    this.eventTouchend = "touchend";
   }
 
   this.listen(); // this WHOLE object is a listener.
@@ -50,38 +50,82 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
     87: 0, // W
     68: 1, // D
     83: 2, // S
-    65: 3  // A
+    65: 3, // A
+    32: 32, // space bar
+    13: 13 // enter
+
+
+
   };
 
   // Respond to direction keys
   document.addEventListener("keydown", function (event) { // listening for keydown events --> 
     var modifiers = event.altKey || event.ctrlKey || event.metaKey ||
-                    event.shiftKey;
-    var mapped    = map[event.which]; // returns the key that was pressed like 38, etc, and each key maps to a number
-   
+      event.shiftKey;
+    var mapped = map[event.which]; // returns the key that was pressed like 38, etc, and each key maps to a number
+    var usingKeys = false;
+  
+    if (mapped == 32) {
+      event.preventDefault();
+      usingKeys = true;
+      var copyMove;
+      optionNumber++;
+      var direction;
+
+      if (optionNumber == 1) {
+        direction = "right";
+      }
+
+      if (optionNumber == 2) {
+        direction = "down"
+      }
+
+      if (optionNumber == 3) {
+        direction = "left"
+      }
+
+      if (optionNumber == 4) {
+        optionNumber = 0;
+      }
+      if (optionNumber == 0) {
+        direction = "up";
+      }
+      mapped = optionNumber;
+      document.getElementById("option").innerHTML = "Move " + direction;
+        
+    } 
+  
+    if (mapped == 13) {
+      usingKeys = true;
+      event.preventDefault();
+      
+      self.emit("move", optionNumber);
+    } else {
 
     if (!modifiers) { // if it is not one of the special keys
-      if (mapped !== undefined) {  // and there's a key val found
+      if (!usingKeys && mapped !== undefined) {  
         event.preventDefault();
-        self.emit("move", mapped); // calling the event "move" and passing on the key
+        self.emit("move", mapped); 
+        
       }
     }
     // R key restarts the game
     if (!modifiers && event.which === 82) {
       self.restart.call(self, event);
     }
+  }
   });
 
   document.getElementById("s").addEventListener("click", function (event) { // listening for keydown events --> 
     var mapped = map[key];
     event.preventDefault();
     self.emit("move", mapped);
-  
-    });
+
+  });
 
 
 
-  
+
 
   // Respond to button presses
   this.bindButtonPress(".retry-button", this.restart);
@@ -94,7 +138,7 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
 
   gameContainer.addEventListener(this.eventTouchstart, function (event) {
     if ((!window.navigator.msPointerEnabled && event.touches.length > 1) ||
-        event.targetTouches.length > 1) {
+      event.targetTouches.length > 1) {
       return; // Ignore if touching with more than 1 finger
     }
 
@@ -115,7 +159,7 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
 
   gameContainer.addEventListener(this.eventTouchend, function (event) {
     if ((!window.navigator.msPointerEnabled && event.touches.length > 0) ||
-        event.targetTouches.length > 0) {
+      event.targetTouches.length > 0) {
       return; // Ignore if still touching with one or more fingers
     }
 
@@ -131,7 +175,7 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
 
     var dx = touchEndClientX - touchStartClientX;
     var absDx = Math.abs(dx);
-   
+
 
     var dy = touchEndClientY - touchStartClientY;
     var absDy = Math.abs(dy);
@@ -140,7 +184,7 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
       // (right : left) : (down : up)
       self.emit("move", absDx > absDy ? (dx > 0 ? 1 : 3) : (dy > 0 ? 2 : 0));
 
-      
+
     }
   });
 };
@@ -162,8 +206,9 @@ KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
 };
 
 
+
 KeyboardInputManager.prototype.toggle = function (event) {
-  optionNumber ++;
+  optionNumber++;
   var direction;
   var map = {
     38: 0, // Up
@@ -175,26 +220,26 @@ KeyboardInputManager.prototype.toggle = function (event) {
   if (optionNumber == 1) {
     direction = "right";
     key = 39;
-  } 
-  
+  }
+
   if (optionNumber == 2) {
     direction = "down"
     key = 40;
-  } 
-  
+  }
+
   if (optionNumber == 3) {
     direction = "left"
     key = 37;
   }
-  
+
   if (optionNumber == 4) {
     optionNumber = 0;
-   
+
   }
   if (optionNumber == 0) {
     direction = "up";
     key = 38;
-  } 
+  }
 
   document.getElementById("option").innerHTML = "Move " + direction;
 
@@ -203,15 +248,15 @@ KeyboardInputManager.prototype.toggle = function (event) {
 
 // KeyboardInputManager.prototype.selectOption = function (event) {
 //  // event.preventDefault();
- 
+
 
 
 // }
 setListeners = function () {   // only sets at the beginning
   optionNumber = 0;
 
-    document.getElementById("t").addEventListener("click", function (event) {KeyboardInputManager.prototype.toggle(event)})
-    
+  document.getElementById("t").addEventListener("click", function (event) { KeyboardInputManager.prototype.toggle(event) })
+
 };
 
 setListeners();

@@ -8,7 +8,7 @@ html, body {
   font-size: 18px; }
 
 body {
-  margin: 80px 0; }
+  margin: 20px 0; }
 
 .heading:after {
   content: "";
@@ -138,7 +138,7 @@ hr {
   100% {
     opacity: 1; } }
 .game-container {
-  margin-top: 40px;
+  margin-top: 0px;
   position: relative;
   padding: 15px;
   cursor: default;
@@ -514,7 +514,7 @@ hr {
 
 .game-intro {
   float: left;
-  line-height: 42px;
+  line-height: 20px;
   margin-bottom: 0; }
 
 .restart-button {
@@ -531,7 +531,7 @@ hr {
   float: right; }
 
 .game-explanation {
-  margin-top: 50px; }
+  margin-top: 10px; }
 
 @media screen and (max-width: 520px) {
   html, body {
@@ -558,7 +558,7 @@ hr {
     margin-bottom: 10px; }
 
   .game-intro {
-    width: 55%;
+    width: 30%;
     display: block;
     box-sizing: border-box;
     line-height: 1.65; }
