@@ -756,3 +756,42 @@ hr {
     margin-top: 90px !important; }
   .game-message .lower {
     margin-top: 30px !important; } }
+
+  .toggle {
+    float: left
+  }
+  .toggleBtn {
+    display: block;
+    font-size: 60px;
+    background: #8f7a66;
+    border-radius: 3px;
+    padding: 0 10px;
+    text-decoration: none;
+    color: #f9f6f2;
+    height: 80px;
+    line-height: 42px;
+    display: block;
+    text-align: center;
+    width: 400px;
+    /* height: 100px; */
+    float: left;
+    }
+
+    .selectBtn {
+      display: block;
+    font-size: 60px;
+    background: #8f7a66;
+    border-radius: 3px;
+    padding: 0 20px;
+    text-decoration: none;
+    color: #f9f6f2;
+    height: 80px;
+    line-height: 42px;
+    display: block;
+    text-align: center;
+    width: 400px;
+    /* height: 100px; */
+    float: left;
+    }
+
+   
