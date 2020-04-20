@@ -60,6 +60,9 @@ KeyboardInputManager.prototype.listen = function () { // adds event listeners
 
   // Respond to direction keys
   document.addEventListener("keydown", function (event) { // listening for keydown events --> 
+   if (event.repeat) {
+     return;
+   }
     var modifiers = event.altKey || event.ctrlKey || event.metaKey ||
       event.shiftKey;
     var mapped = map[event.which]; // returns the key that was pressed like 38, etc, and each key maps to a number
